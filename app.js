@@ -48,6 +48,7 @@ function getToServer() {
 	$.get( "sample.php", function( data ) {
 		//searchLocation.value = "";
 		//searchTerm.value = "";
+		data = JSON.parse(data);
 		console.log(data);
 		data.forEach(function(object){
 			if(object.longitude){
