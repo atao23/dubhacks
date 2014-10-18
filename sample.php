@@ -117,7 +117,7 @@ function get_business($business_id) {
     return request($GLOBALS['API_HOST'], $business_path);
 }
 
-function query_lat_lon($street, $city, $state, $zip, $country) {
+function query_lat_lng($street, $city, $state, $zip, $country) {
     $streetNoSpace = str_replace(" ", "+", $street);
     $googleKey = 'AIzaSyBj-sD-syW-Uzb9POxM5ptutzseVUYn7yU';
     $googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $streetNoSpace . "," . $city . "," . $state . "&key=" . $googleKey;
@@ -141,53 +141,79 @@ function query_lat_lon($street, $city, $state, $zip, $country) {
     return $processed_response;
 }
 
+function check_database_for_query($term, $location) {
+    $filepath = "";
+    $filename = $filepath . $term . $location;
+    return file_exists($filename);
+}
+
+function perform_query($term, $location, $sort) {
+    $preprocessed_response = array();
+
+        for($i = 0; $i < 20; $i+= 20) {
+            $response = search($term, $location, $sort, $i);
+
+            $parsed_response = json_decode($response, true);
+
+            foreach ($parsed_response['businesses'] as $business) {
+                $response=array();
+
+                if ($business['location']['coordinate']['longitude'] == null || 
+                    $business['location']['coordinate']['latitude'] == null) {
+                    $latLng = query_lat_lng($business['location']['address'][0], $business['location']['city'],
+                        $business['location']['state_code'], $business['location']['postal_code'],
+                        $business['location']['country_code']);
+                    $response['longitude'] = $latLng["lng"];
+                    $response['latitude'] = $latLng["lat"];
+                } else {
+                    $response["longitude"] = $business['location']['coordinate']['longitude'];
+                    $response["latitude"] = $business['location']['coordinate']['latitude'];
+                }
+
+                $response['rating'] = $business['rating'];
+                
+                $preprocessed_response[] = $response;
+            }
+        }
+
+        $preprocessed_json = json_encode($preprocessed_response);
+        print($preprocessed_json);
+}
+
+function serve_database_result($term, $location) {
+    $filepath = "";
+    $filename = $filepath . $term . $location;
+    $file_data = file_get_contents($filename);
+    $json_data = json_decode($file_data, true);
+    print($json_data);
+}
+
 /**
  * Queries the API by the input values from the user 
  * 
- * @param    $term        The search term to query
- * @param    $location    The location of the business to query
+ * 
+ * 
  */
-function query_api($term, $location, $sort) {     
-    
-    $preprocessed_response = array();
+function query_api() {     
+    $term = "Food";
+    $location = "Seattle";
+    $sort = 2;
 
-    for($i = 0; $i < 20; $i+= 20) {
-        $response = search($term, $location, $sort, $i);
-
-        $parsed_response = json_decode($response, true);
-
-        foreach ($parsed_response['businesses'] as $business) {
-            $response=array();
-
-            if ($business['location']['coordinate']['longitude'] == null || 
-                $business['location']['coordinate']['latitude'] == null) {
-                $latLon = query_lat_lon($business['location']['address'][0], $business['location']['city'],
-                    $business['location']['state_code'], $business['location']['postal_code'],
-                    $business['location']['country_code']);
-                $response['longitude'] = $latLon["lng"];
-                $response['latitude'] = $latLon["lat"];
-            } else {
-                $response["longitude"] = $business['location']['coordinate']['longitude'];
-                $response["latitude"] = $business['location']['coordinate']['latitude'];
-            }
-
-            $response['rating'] = $business['rating'];
-            
-            $preprocessed_response[] = $response;
-        }
+    if (isset($_GET["term"]) && isset($_GET["location"])) {
+        $term = str_replace(" ", "+", $_GET["term"]);
+        $location = str_replace(" ", "+", $_GET["location"]);
     }
 
-    $preprocessed_json = json_encode($preprocessed_response);
-    print($preprocessed_json);
+    if (check_database_for_query($term, $location)) {
+        serve_database_result($term, $location);
+    } else {
+        perform_query($term, $location, $sort);
+    }
 }
 
 /**
  * User input is handled here 
  */
 
-$term = 'Food';
-$sort = '2';
-$location = 'Seattle';
-
-query_api($term, $location, $sort);
+query_api();
 ?>
