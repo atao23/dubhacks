@@ -92,9 +92,9 @@ function request($host, $path) {
 function search($term, $location, $sort, $offset) {
     $url_params = array();
     
-    $url_params['term'] = $GLOBALS['DEFAULT_TERM'];
-    $url_params['location'] = $GLOBALS['DEFAULT_LOCATION'];
-    $url_params['sort'] = $GLOBALS["DEFAULT_SORT"];
+    $url_params['term'] = $term;
+    $url_params['location'] = $location;
+    $url_params['sort'] = $sort;
     $url_params['limit'] = $GLOBALS['SEARCH_LIMIT'];
     $url_params['offset'] = $offset;
     $search_path = $GLOBALS['SEARCH_PATH'] . "?" . http_build_query($url_params);
