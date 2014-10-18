@@ -143,7 +143,7 @@ function query_lat_lng($street, $city, $state, $zip, $country) {
 
 function check_database_for_query($term, $location) {
     $filepath = "";
-    $filename = $filepath . $term . $location;
+    $filename = $filepath . "+" . $term . "+" . $location;
     return file_exists($filename);
 }
 
