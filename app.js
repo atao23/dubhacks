@@ -40,14 +40,7 @@ function drawCircle(lat, long, rating) {
     cityCircle = new google.maps.Circle(populationOptions);
 };
 
-//var object = [{"longitude":-122.350311,"latitude":47.658493},{"longitude":-122.3342613,"latitude":47.6088937},{"longitude":null,"latitude":null},{"longitude":-122.3424354,"latitude":47.6103582},{"longitude":null,"latitude":null},{"longitude":-122.268441,"latitude":47.661428},{"longitude":null,"latitude":null},{"longitude":-122.357127,"latitude":47.624851},{"longitude":null,"latitude":null},{"longitude":null,"latitude":null},{"longitude":-122.34187334197,"latitude":47.610441439483},{"longitude":null,"latitude":null},{"longitude":null,"latitude":null},{"longitude":null,"latitude":null},{"longitude":null,"latitude":null},{"longitude":-122.314078,"latitude":47.613063}];
-
 function getToServer() {
-	// object.forEach(function(data){
-	// 	if(data.longitude){
-	// 		drawCircle(data.latitude, data.longitude, Math.floor(Math.random() * 5) + 1);
-	// 	}
-	// });
 	$.get( "sample.php", function( data ) {
 		data = JSON.parse(data);
 		console.log(data);
