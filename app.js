@@ -3,7 +3,7 @@ var map;
 window.onload = function(){
 	var but = document.getElementById('clickButton');
 	but.onclick = function(){
-		console.log('working!!!');
+		getToServer();
 	}	
 }
 function initialize() {
@@ -27,5 +27,11 @@ function drawCircle(lat, long, rating){
 
     cityCircle = new google.maps.Circle(populationOptions);
 };
+
+function getToServer(){
+	$.get( "sample.php", function( data ) {
+		console.log(data);
+	});
+}
 
 google.maps.event.addDomListener(window, 'load', initialize);
