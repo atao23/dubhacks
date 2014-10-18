@@ -143,7 +143,7 @@ function query_lat_lng($street, $city, $state, $zip, $country) {
 
 function check_database_for_query($term, $location) {
     $filepath = "";
-    $filename = $filepath . "+" . $term . "+" . $location;
+    $filename = $filepath . $term . "+" . $location;
     return file_exists($filename);
 }
 
@@ -177,12 +177,16 @@ function perform_query($term, $location, $sort) {
         }
 
         $preprocessed_json = json_encode($preprocessed_response);
+        $filepath = "";
+        $filename = $filepath . $term . "+" . $location;
+        $file = fopen($filename, "w");
+        fwrite($file, $preprocessed_json);
         print($preprocessed_json);
 }
 
 function serve_database_result($term, $location) {
     $filepath = "";
-    $filename = $filepath . "+" . $term . "+" . $location;
+    $filename = $filepath . $term . "+" . $location;
     $file_data = file_get_contents($filename);
     $json_data = json_decode($file_data, true);
     print($json_data);
