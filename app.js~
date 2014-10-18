@@ -45,7 +45,7 @@ function drawCircle(lat, long, rating) {
 };
 
 function getToServer() {
-	$.get( "sample.php", {'location': searchLocation.value, 'term': searchTerm.value}, function( data ) {
+	$.get( "sample.php", function( data ) {
 		searchLocation.value = "";
 		searchTerm.value = "";
 		console.log(data);
