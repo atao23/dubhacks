@@ -151,7 +151,7 @@ function query_api($term, $location, $sort) {
     
     $preprocessed_response = array();
 
-    for($i = 0; $i < 20; $i+= 20) {
+    for($i = 0; $i < $SEARCH_LIMIT; $i+= 20) {
         $response = search($term, $location, $sort, $i);
 
         $parsed_response = json_decode($response, true);
