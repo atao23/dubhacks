@@ -48,7 +48,6 @@ function getToServer() {
 	$.get( "sample.php", {'location': searchLocation.value, 'term': searchTerm.value}, function( data ) {
 		searchLocation.value = "";
 		searchTerm.value = "";
-		data = JSON.parse(data);
 		data.forEach(function(object){
 			if(object.longitude){
 				drawCircle(object.latitude, object.longitude, object.rating || 3);
