@@ -182,7 +182,7 @@ function perform_query($term, $location, $sort) {
 
 function serve_database_result($term, $location) {
     $filepath = "";
-    $filename = $filepath . $term . $location;
+    $filename = $filepath . "+" . $term . "+" . $location;
     $file_data = file_get_contents($filename);
     $json_data = json_decode($file_data, true);
     print($json_data);
