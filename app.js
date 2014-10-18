@@ -28,18 +28,4 @@ function drawCircle(lat, long, rating){
     cityCircle = new google.maps.Circle(populationOptions);
 };
 
-function drawCircle(lat, long, rating, color){
-	var populationOptions = {
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.0,
-      fillColor: color,
-      fillOpacity: 0.1 * rating,
-      map: map,
-      center: {lat: lat, lng: long},
-      radius:  38
-    };
-
-    cityCircle = new google.maps.Circle(populationOptions);
-};
-
 google.maps.event.addDomListener(window, 'load', initialize);
