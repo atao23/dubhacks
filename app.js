@@ -52,9 +52,8 @@ function getToServer() {
 		data = JSON.parse(data);
 		console.log(data);
 		data.forEach(function(object){
-			console.log(object);
 			if(object.longitude){
-				drawCircle(object.longitude, object.latitude, object.rating || 3);
+				drawCircle(object.latitude, object.longitude, object.rating || 3);
 			}
 		});
 	});
