@@ -1,6 +1,6 @@
 var map;
-var searchLocation;
-var searchTerm;
+//var searchLocation;
+//var searchTerm;
 
 window.onload = function(){
 	var but = document.getElementById('clickButton');
@@ -46,8 +46,8 @@ function drawCircle(lat, long, rating) {
 
 function getToServer() {
 	$.get( "sample.php", function( data ) {
-		searchLocation.value = "";
-		searchTerm.value = "";
+		//searchLocation.value = "";
+		//searchTerm.value = "";
 		console.log(data);
 		data.forEach(function(object){
 			if(object.longitude){
