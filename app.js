@@ -30,9 +30,11 @@ function drawCircle(lat, long, rating){
 
 function getToServer(){
 	$.get( "sample.php", function( data ) {
-		data.forEach(function(data){
-			if(data.longitude)
-				console.log data.longitude;
+		data = JSON.parse(data);
+		data.forEach(function(object){
+			if(object.longitude){
+				drawCircle(object.longitude, object.latitude, 3);
+			}
 		});
 	});
 }
