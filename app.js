@@ -1,4 +1,11 @@
 var map;
+
+window.onload = function(){
+	var but = document.getElementById('clickButton');
+	but.onclick = function(){
+		console.log('working!!!');
+	}	
+}
 function initialize() {
 	var mapOptions = {
 	  center: { lat: 47.6097, lng: -122.3331},
