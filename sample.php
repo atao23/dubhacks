@@ -147,13 +147,8 @@ function check_database_for_query($term, $location) {
     return file_exists($filename);
 }
 
-<<<<<<< HEAD
 function perform_query($term, $location, $sort) {
     $preprocessed_response = array();
-=======
-    for($i = 0; $i < $SEARCH_LIMIT; $i+= 20) {
-        $response = search($term, $location, $sort, $i);
->>>>>>> 63abca355b958311afb2c1657515f5c0cb3a3e52
 
         for($i = 0; $i < 20; $i+= 20) {
             $response = search($term, $location, $sort, $i);
