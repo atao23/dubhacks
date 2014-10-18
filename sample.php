@@ -118,7 +118,7 @@ function get_business($business_id) {
 }
 
 function query_lat_lon($street, $city, $state, $zip, $country) {
-    $streetNoSpace = str_replace(" ", "", $street);
+    $streetNoSpace = str_replace(" ", "+", $street);
     $googleKey = 'AIzaSyBj-sD-syW-Uzb9POxM5ptutzseVUYn7yU';
     $googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $streetNoSpace . "," . $city . "," . $state . "&key=" . $googleKey;
     $curl = curl_init();
