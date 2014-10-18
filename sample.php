@@ -135,12 +135,9 @@ function query_lat_lon($street, $city, $state, $zip, $country) {
     $lat = $parsed_response['results'][0]['geometry']['location']['lat'];
     $lng = $parsed_response['results'][0]['geometry']['location']['lng'];
 
-    //print_r($parsed_response['results']['geometry']);
-    // var_dump($parsed_response['results']['geometry']);
     $processed_response = array();
     $processed_response["lat"] = $lat;
     $processed_response["lng"] = $lng;
-    //var_dump($processed_response);
     return $processed_response;
 }
 
@@ -176,7 +173,6 @@ function query_api($term, $location, $sort) {
 
             $response['rating'] = $business['rating'];
             
-            //Get good
             $preprocessed_response[] = $response;
         }
     }
@@ -188,12 +184,6 @@ function query_api($term, $location, $sort) {
 /**
  * User input is handled here 
  */
-$longopts  = array(
-    "term::",
-    "location::",
-);
-    
-//$options = 'Test';
 
 $term = 'Food';
 $sort = '2';
