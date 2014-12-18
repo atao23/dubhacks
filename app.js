@@ -45,6 +45,14 @@ function drawCircle(lat, long, rating) {
 };
 
 function getToServer() {
+	if (searchLocation.value == undefined || searchLocation.value == "") {
+		searchLocation.value = "seattle";
+	}
+
+	if (searchTerm.value == undefined || searchTerm.value == "") {
+		searchTerm.value = "food";
+	}
+
 	$.get( "sample.php", {'location': searchLocation.value, 'term': searchTerm.value}, function( data ) {
 		searchLocation.value = "";
 		searchTerm.value = "";
