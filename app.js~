@@ -45,23 +45,9 @@ function drawCircle(lat, long, rating) {
 };
 
 function getToServer() {
-<<<<<<< HEAD
-	if (searchLocation.value == undefined || searchLocation.value == "") {
-		searchLocation.value = "seattle";
-	}
-
-	if (searchTerm.value == undefined || searchTerm.value == "") {
-		searchTerm.value = "food";
-	}
-
-	$.get( "sample.php", {'location': searchLocation.value, 'term': searchTerm.value}, function( data ) {
-		searchLocation.value = "";
-		searchTerm.value = "";
-=======
 	$.get( "sample.php", function( data ) {
 		//searchLocation.value = "";
 		//searchTerm.value = "";
->>>>>>> 5edf00b6b2d6a9002372290ec9657c9b6ede8393
 		data = JSON.parse(data);
 		console.log(data);
 		data.forEach(function(object){
