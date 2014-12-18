@@ -189,12 +189,6 @@ function serve_database_result($term, $location) {
     $filename = $filepath . $term . "+" . $location . ".json";
     $file_data = file_get_contents($filename);
     print($file_data);
-<<<<<<< HEAD
-=======
-    /*$json_data = json_decode($file_data, true);
-    var_dump($json_data);
-    print($json_data);*/
->>>>>>> 5edf00b6b2d6a9002372290ec9657c9b6ede8393
 }
 
 /**
@@ -208,7 +202,7 @@ function query_api() {
     $location = "Seattle";
     $sort = 2;
 
-   if (isset($_GET["term"]) && isset($_GET["location"])) {
+    if (isset($_GET["term"]) && isset($_GET["location"])) {
         $term = str_replace(" ", "+", $_GET["term"]);
         $location = str_replace(" ", "+", $_GET["location"]);
     }
@@ -221,7 +215,6 @@ function query_api() {
     } else {
         perform_query($term, $location, $sort);
     }
-
 }
 
 /**

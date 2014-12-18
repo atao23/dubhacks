@@ -1,6 +1,6 @@
 var map;
-//var searchLocation;
-//var searchTerm;
+var searchLocation;
+var searchTerm;
 
 window.onload = function(){
 	var but = document.getElementById('clickButton');
@@ -45,7 +45,6 @@ function drawCircle(lat, long, rating) {
 };
 
 function getToServer() {
-<<<<<<< HEAD
 	if (searchLocation.value == undefined || searchLocation.value == "") {
 		searchLocation.value = "seattle";
 	}
@@ -57,13 +56,7 @@ function getToServer() {
 	$.get( "sample.php", {'location': searchLocation.value, 'term': searchTerm.value}, function( data ) {
 		searchLocation.value = "";
 		searchTerm.value = "";
-=======
-	$.get( "sample.php", function( data ) {
-		//searchLocation.value = "";
-		//searchTerm.value = "";
->>>>>>> 5edf00b6b2d6a9002372290ec9657c9b6ede8393
 		data = JSON.parse(data);
-		console.log(data);
 		data.forEach(function(object){
 			if(object.longitude){
 				drawCircle(object.latitude, object.longitude, object.rating || 3);
