@@ -143,7 +143,7 @@ function query_lat_lng($street, $city, $state, $zip, $country) {
 
 function check_database_for_query($term, $location) {
     $filepath = "";
-    $filename = $filepath . $term . "+" . $location;
+    $filename = $filepath . $term . "+" . $location . ".json";
     return file_exists($filename);
 }
 
@@ -178,7 +178,7 @@ function perform_query($term, $location, $sort) {
 
         $preprocessed_json = json_encode($preprocessed_response);
         $filepath = "";
-        $filename = $filepath . $term . "+" . $location;
+        $filename = $filepath . $term . "+" . $location . ".json";
         $file = fopen($filename, "w");
         fwrite($file, $preprocessed_json);
         print($preprocessed_json);
@@ -186,10 +186,9 @@ function perform_query($term, $location, $sort) {
 
 function serve_database_result($term, $location) {
     $filepath = "";
-    $filename = $filepath . $term . "+" . $location;
+    $filename = $filepath . $term . "+" . $location . ".json";
     $file_data = file_get_contents($filename);
-    $json_data = json_decode($file_data, true);
-    print($json_data);
+    print($file_data);
 }
 
 /**
@@ -207,6 +206,9 @@ function query_api() {
         $term = str_replace(" ", "+", $_GET["term"]);
         $location = str_replace(" ", "+", $_GET["location"]);
     }
+
+    $term = strtolower($term);
+    $location = strtolower($location);
 
     if (check_database_for_query($term, $location)) {
         serve_database_result($term, $location);
